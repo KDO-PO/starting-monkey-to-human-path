@@ -69,14 +69,11 @@ public class XmlTask {
             Element employee = (Element) employeeElements.item(i);
             if (employee.getAttribute("firstname").equals(firstName)
                     && employee.getAttribute("secondname").equals(secondName)) {
-                System.out.println(employee.getAttribute("firstname") + "   " + employee.getAttribute("secondname"));
+                //System.out.println(employee.getAttribute("firstname") + "   " + employee.getAttribute("secondname"));
                 Element jobtitle = (Element) employee.getElementsByTagName("jobtitle").item(0);
                 jobtitle.setAttribute("value", newJobTitle);
 
-                TransformerFactory factory1 = TransformerFactory.newInstance();
-                factory.setIgnoringElementContentWhitespace(true);
-                Transformer transformer = factory1.newTransformer();
-                transformer.transform(new DOMSource(document), new StreamResult(document.getDocumentURI()));
+                transformer();
                 return;
             }
 
@@ -94,10 +91,7 @@ public class XmlTask {
                  Element jobtitle = (Element) employee.getElementsByTagName("salary").item(0);
                  jobtitle.setTextContent(Integer.toString(newSalary));
 
-                 TransformerFactory factory1 = TransformerFactory.newInstance();
-                 factory.setIgnoringElementContentWhitespace(true);
-                 Transformer transformer = factory1.newTransformer();
-                 transformer.transform(new DOMSource(document), new StreamResult(document.getDocumentURI()));
+                 transformer();
                  return;
 
              }
@@ -111,14 +105,16 @@ public class XmlTask {
             if (employee.getAttribute("firstname").equals(firstName)
                     && employee.getAttribute("secondname").equals(secondName)) {
                 employee.getParentNode().removeChild(employee);
-
-                TransformerFactory factory1 = TransformerFactory.newInstance();
-                factory.setIgnoringElementContentWhitespace(true);
-                Transformer transformer = factory1.newTransformer();
-                transformer.transform(new DOMSource(document), new StreamResult(document.getDocumentURI()));
+                transformer();
                 return;
             }
         }
+    }
+    private void transformer() throws TransformerException {
+        TransformerFactory factory1 = TransformerFactory.newInstance();
+        factory.setIgnoringElementContentWhitespace(true);
+        Transformer transformer = factory1.newTransformer();
+        transformer.transform(new DOMSource(document), new StreamResult(document.getDocumentURI()));
     }
 }
 
