@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?><organization name="Terra">
+    <department name="OOO">
+        <employee firstname="Taion" secondname="Dek">
+            <hiredate>10-07-1990</hiredate>
+            <salary>8800</salary>
+            <jobtitle value="head"/>
+        </employee>
+        <employee firstname="Glen" secondname="Sand">
+            <hiredate>20-09-1980</hiredate>
+            <salary>40000</salary>
+            <jobtitle value="engineer"/>
+        </employee>
+        
+    </department>
+    <department name="PPP">
+         <employee firstname="Glen" secondname="Sand">
+             <hiredate>20-09-1980</hiredate>
+                <salary>40000</salary>
+                <jobtitle value="engineer"/>
+         </employee>
+    </department>
+    <department name="KKK">
+        <employee firstname="Kris" secondname="Aers">
+            <hiredate>30-06-1980</hiredate>
+            <salary>30000</salary>
+            <jobtitle value="secretary"/>
+        </employee>
+    </department>
+
+</organization>
