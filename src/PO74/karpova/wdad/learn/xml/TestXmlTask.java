@@ -16,20 +16,15 @@ public class TestXmlTask {
         String name="OOO";
         String firstname="Taion";
         String secondname="Dek";
-        //System.out.println(xmlTask.salaryAverage());
-       // System.out.println(xmlTask.salaryAverage(name));
+        System.out.println(xmlTask.salaryAverage());
+        System.out.println(xmlTask.salaryAverage(name));
 
-       // xmlTask.setJobTitile(firstname, secondname, "head");
+        xmlTask.setJobTitile(firstname, secondname, "head");
        // xmlTask.fireEmployee("Glen1", "Sand1");
-        //xmlTask.setSalary(firstname, secondname, 8800);
+        xmlTask.setSalary(firstname, secondname, 8800);
 
-        PreferencesManager.getPreferencesManager().setCreateregistry("yes");
-        PreferencesManager.getPreferencesManager().getCreateregistry();
-        PreferencesManager.getPreferencesManager().getRegistryaddress();
-        PreferencesManager.getPreferencesManager().getRegistryport();
-        PreferencesManager.getPreferencesManager().getPolicypath();
-        PreferencesManager.getPreferencesManager().getUsecodebaseonly();
-        PreferencesManager.getPreferencesManager().getClassprovider();
+        System.out.println(PreferencesManager.getPreferencesManager().getCreateregistry());
+
 
     }
 }
