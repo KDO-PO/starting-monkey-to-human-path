@@ -20,12 +20,12 @@ directory or *jar file, or URL to *.jar file, containing *.class files -->
                 class CDATA #REQUIRED
                 >
         ]>
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><appconfig>
+<appconfig>
     <rmi>
         <server>
             <registry>
                 <createregistry>yes</createregistry>
-                <registryaddress>localhost1</registryaddress>
+                <registryaddress>localhost</registryaddress>
                 <registryport>1099</registryport>
             </registry>
         </server>

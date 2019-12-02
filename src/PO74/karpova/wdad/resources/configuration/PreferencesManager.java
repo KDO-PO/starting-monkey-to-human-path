@@ -1,130 +1,123 @@
 package PO74.karpova.wdad.resources.configuration;
 
+import org.jdom2.Element;
+import org.jdom2.input.DOMBuilder;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 
-public class PreferencesManager{
-    private static PreferencesManager preferencesManager;
-    private  DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-    private  DocumentBuilder builder = factory.newDocumentBuilder();
-    private  Document document = builder.parse(new File("C:/starting-monkey-to-human-path/src/PO74/karpova/wdad/resources/configuration/appconfig.xml"));
-    private  NodeList employeeElements = document.getDocumentElement().getElementsByTagName("employee");
-    private XPathFactory xPathFactory = XPathFactory.newInstance();
-    private XPath xPath = xPathFactory.newXPath();
+public final class PreferencesManager {
+    private static PreferencesManager instance;
+    Element root;
+    List<Element> nodeListElements;
+    XMLOutputter xmlOut;
+    org.jdom2.Document jdomDocument;
+    String fileName = "";
 
-    private String createregistry;
-    private String registryaddress;
-    private String registryport;
-    private String policypath;
-    private String usecodebaseonly;
-    private String classprovider;
-
-
-    private PreferencesManager() throws ParserConfigurationException, IOException, SAXException {
+    public PreferencesManager() throws IOException, SAXException, ParserConfigurationException {
+        fileName = "C:/starting-monkey-to-human-path/src/PO74/karpova/wdad/resources/configuration/appconfig.xml";
+        jdomDocument = createJDOMusingDOMParser(fileName);
+        xmlOut = new XMLOutputter();
+        root = jdomDocument.getRootElement();
     }
-    @Deprecated
-    public static  synchronized   PreferencesManager getPreferencesManager() throws ParserConfigurationException, IOException, SAXException {
-        if (preferencesManager==null){
-            preferencesManager=new PreferencesManager();
+
+    public static PreferencesManager getInstance() throws ParserConfigurationException, SAXException, IOException {
+        if (instance == null) {
+            instance = new PreferencesManager();
         }
-        return preferencesManager;
+        return instance;
     }
-    @Deprecated
-    public String getCreateregistry() throws XPathExpressionException {
-        return (String) xPath.evaluate("/appconfig/rmi/server/registry/createregistry", document, XPathConstants.STRING);
-    }
-    @Deprecated
-    public void setCreateregistry(String newCreateregistry) throws TransformerException, XPathExpressionException {
-            employeeElements =(NodeList) xPath.evaluate("/appconfig/rmi/server/registry/createregistry", document, XPathConstants.NODESET);
-            employeeElements.item(0).setTextContent(newCreateregistry);
-            transformer();
+
+    private static org.jdom2.Document createJDOMusingDOMParser(String fileName)
+            throws ParserConfigurationException, SAXException, IOException {
+        //создаем DOM Document
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder;
+        documentBuilder = dbFactory.newDocumentBuilder();
+        Document doc = documentBuilder.parse(new File(fileName));
+        DOMBuilder domBuilder = new DOMBuilder();
+
+        return domBuilder.build(doc);
 
     }
-    @Deprecated
-    public String getRegistryaddress() throws XPathExpressionException {
-        registryaddress = (String) xPath.evaluate("/appconfig/rmi/server/registry/registryaddress", document, XPathConstants.STRING);
-        return registryaddress;
-    }
-    @Deprecated
-    public void setRegistryaddress(String newRegistryaddress) throws TransformerException, XPathExpressionException {
-        employeeElements =(NodeList) xPath.evaluate("/appconfig/rmi/server/registry/registryaddress", document, XPathConstants.NODESET);
-        employeeElements.item(0).setTextContent(newRegistryaddress);
-        transformer();
 
+    @Deprecated
+    public String GetCreateRegistry()
+    {
+        return root.getChild("rmi").getChild("server").getChild("registry").getChildText("createregistry");
     }
     @Deprecated
-    public String getRegistryport() throws XPathExpressionException {
-        registryport = (String) xPath.evaluate("/appconfig/rmi/server/registry/registryport", document, XPathConstants.STRING);
-        return registryport;
+    public void SetCreateRegistry(String createregistry) throws IOException {
+        root.getChild("rmi").getChild("server").getChild("registry").getChild("createregistry").setText(createregistry);
+        xmlOut.setFormat(Format.getPrettyFormat());
+        xmlOut.output(jdomDocument, new FileWriter(fileName));
     }
     @Deprecated
-    public void setRegistryport(int newRegistryport) throws TransformerException, XPathExpressionException {
-        employeeElements =(NodeList) xPath.evaluate("/appconfig/rmi/server/registry/registryport", document, XPathConstants.NODESET);
-        employeeElements.item(0).setTextContent(Integer.toString(newRegistryport));
-        transformer();
+    public String GetRegistryAddress()
+    {
+        return root.getChild("rmi").getChild("server").getChild("registry").getChildText("registryaddress");
+    }
+    @Deprecated
+    public void SetRegistryAddress(String registryaddress) throws IOException {
+        root.getChild("rmi").getChild("server").getChild("registry").getChild("registryaddress").setText(registryaddress);
+        xmlOut.setFormat(Format.getPrettyFormat());
+        xmlOut.output(jdomDocument, new FileWriter(fileName));
+    }
+    @Deprecated
+    public String GetRegistryPort()
+    {
+        return root.getChild("rmi").getChild("server").getChild("registry").getChildText("registryport");
+    }
+    @Deprecated
+    public void SetRegistryPort(String registryport) throws IOException {
+        root.getChild("rmi").getChild("server").getChild("registry").getChild("registryport").setText(registryport);
+        xmlOut.setFormat(Format.getPrettyFormat());
+        xmlOut.output(jdomDocument, new FileWriter(fileName));
+    }
+    @Deprecated
+    public String GetPolicyPath()
+    {
+        return root.getChild("rmi").getChild("client").getChildText("policypath");
+    }
+    @Deprecated
+    public void SetPolicyPath(String policypath) throws IOException {
+        root.getChild("rmi").getChild("client").getChild("policypath").setText(policypath);
+        xmlOut.setFormat(Format.getPrettyFormat());
+        xmlOut.output(jdomDocument, new FileWriter(fileName));
+    }
+    @Deprecated
+    public String GetUseCodeBaseOnly()
+    {
+        return root.getChild("rmi").getChild("client").getChildText("usecodebaseonly");
+    }
+    @Deprecated
+    public void SetUseCodeBaseOnly(String usecodebaseonly) throws IOException {
+        root.getChild("rmi").getChild("client").getChild("usecodebaseonly").setText(usecodebaseonly);
+        xmlOut.setFormat(Format.getPrettyFormat());
+        xmlOut.output(jdomDocument, new FileWriter(fileName));
+    }
+    @Deprecated
+    public String GetClassProvider()
+    {
+        return root.getChild("rmi").getChildText("classprovider");
+    }
+    @Deprecated
+    public void SetClassProvider(String classprovider) throws IOException {
+        root.getChild("rmi").getChild("classprovider").setText(classprovider);
+        xmlOut.setFormat(Format.getPrettyFormat());
+        xmlOut.output(jdomDocument, new FileWriter(fileName));
+    }
 
-    }
-    @Deprecated
-    public String getPolicypath() throws XPathExpressionException {
-        policypath = (String) xPath.evaluate("/appconfig/rmi/client/policypath", document, XPathConstants.STRING);
-        return policypath;
-    }
-    @Deprecated
-    public void setPolicypath(String newPolicypath) throws TransformerException, XPathExpressionException {
-        employeeElements =(NodeList) xPath.evaluate("/appconfig/rmi/client/policypath", document, XPathConstants.NODESET);
-        employeeElements.item(0).setTextContent(newPolicypath);
-        transformer();
-
-    }
-    @Deprecated
-    public String getUsecodebaseonly() throws XPathExpressionException {
-        usecodebaseonly = (String) xPath.evaluate("/appconfig/rmi/client/usecodebaseonly", document, XPathConstants.STRING);
-        return usecodebaseonly;
-    }
-    @Deprecated
-    public void setUsecodebaseonly(String newUsecodebaseonly) throws TransformerException, XPathExpressionException {
-        employeeElements =(NodeList) xPath.evaluate("/appconfig/rmi/client/usecodebaseonly", document, XPathConstants.NODESET);
-        employeeElements.item(0).setTextContent(newUsecodebaseonly);
-        transformer();
-
-    }
-    @Deprecated
-    public String getClassprovider() throws XPathExpressionException {
-        classprovider = (String) xPath.evaluate("/appconfig/rmi/client/classprovider", document, XPathConstants.STRING);
-        return classprovider;
-    }
-    @Deprecated
-    public void setClassprovider(String newClassprovider) throws TransformerException, XPathExpressionException {
-        employeeElements =(NodeList) xPath.evaluate("/appconfig/rmi/client/classprovider", document, XPathConstants.NODESET);
-        employeeElements.item(0).setTextContent(newClassprovider);
-        transformer();
-
-    }
-    private void transformer() throws TransformerException {
-        TransformerFactory factory1 = TransformerFactory.newInstance();
-        factory.setIgnoringElementContentWhitespace(true);
-        Transformer transformer = factory1.newTransformer();
-        transformer.transform(new DOMSource(document), new StreamResult(document.getDocumentURI()));
-    }
 
     public void setProperty(String key, String value){}
 
