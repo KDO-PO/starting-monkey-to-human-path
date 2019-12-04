@@ -19,11 +19,11 @@ public class TestXmlTask {
         System.out.println(xmlTask.salaryAverage());
         System.out.println(xmlTask.salaryAverage(name));
 
-        xmlTask.setJobTitile(firstname, secondname, "head");
+       // xmlTask.setJobTitile(firstname, secondname, "head");
        // xmlTask.fireEmployee("Glen1", "Sand1");
         xmlTask.setSalary(firstname, secondname, 8800);
 
-        System.out.println(PreferencesManager.getPreferencesManager().getCreateregistry());
+       // System.out.println(PreferencesManager.getInstance().getProperties());
 
 
     }

@@ -10,6 +10,11 @@
             <salary>40000</salary>
             <jobtitle value="engineer"/>
         </employee>
+        <employee firstname="Glen1" secondname="Sand1">
+            <hiredate>20-09-1980</hiredate>
+            <salary>40000</salary>
+            <jobtitle value="engineer"/>
+        </employee>
         
 
     </department>

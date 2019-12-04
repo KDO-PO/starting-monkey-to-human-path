@@ -15,6 +15,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
+import PO74.karpova.wdad.utils.PreferencesManagerConstant;
 
 public final class PreferencesManager {
     private static PreferencesManager instance;
@@ -119,13 +120,57 @@ public final class PreferencesManager {
     }
 
 
-    public void setProperty(String key, String value){}
+    public void setProperty(String key, String value) throws IOException {
+        String[] tags = key.split(".");
+        Element element = null;
+        for(String s : tags)
+        {
+            element = root.getChild(s);
+        }
+        element.setText(value);
+        xmlOut.setFormat(Format.getPrettyFormat());
+        xmlOut.output(jdomDocument, new FileWriter(fileName));
+    }
 
-    public String getProperty(String key){return null;}
-
-    public void setProperties(Properties prop){}
-
-    public Properties getProperties(){return null;}
+    public String getProperty(String key)
+    {
+        String[] tags = key.split("\\.");
+        for(String s:tags)
+        {
+            System.out.println(s);
+        }
+        Element element = root;
+        for(String child : tags)
+        {
+            element = element.getChild(child);
+        }
+        if(element != null)
+        {
+            return element.getText();
+        }
+        return "";
+    }
+    public void setProperties(Properties prop)
+    {
+        prop.stringPropertyNames().forEach(s -> {
+            try {
+                setProperty(s,prop.getProperty(s));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+    public Properties getProperties()
+    {
+        Properties properties = new Properties();
+        String[] keys = {PreferencesManagerConstant.CLASS_PROVIDER,PreferencesManagerConstant.CREATE_REGISTRY,
+                PreferencesManagerConstant.POLICY_PATH, PreferencesManagerConstant.REGISTRY_ADDRESS,
+                PreferencesManagerConstant.USE_CODE_BASE_ONLY, PreferencesManagerConstant.REGISTRY_PORT};
+        for(String s : keys){
+            properties.setProperty(s,getProperty(s));
+        }
+        return properties;
+    }
 
     public void addBindedObject(String name, String className){}
 
