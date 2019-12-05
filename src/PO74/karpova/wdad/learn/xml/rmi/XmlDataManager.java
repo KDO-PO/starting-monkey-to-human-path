@@ -16,9 +16,9 @@ public interface XmlDataManager extends Remote
 {
      double salaryAverage () throws RemoteException, XPathExpressionException;// – возвращает среднюю заработную платусотрудников организации.
      double salaryAverage (String departmentName) throws RemoteException, XPathExpressionException;// – возвращает среднююзаработную плату сотрудников заданного департамента.
-     void setJobTitle (Employee employee, JobTitle newJobTitle) throws IOException;// –изменяет должность сотрудника.
-     void setSalary (Employee employee, int newSalary) throws IOException,TransformerException;// – изменяетразмер заработной платы сотрудника.
+     void setJobTitle (String firstName, String secondName, String newJobTitle) throws IOException, TransformerException;// –изменяет должность сотрудника.
+     void setSalary (String firstName, String secondName, int newSalary) throws IOException,TransformerException;// – изменяетразмер заработной платы сотрудника.
      void fireEmployee (String fname, String  sname) throws  TransformerException,RemoteException;// – удаляющий информациюо сотруднике.
-     void add (Department department) throws IOException; //– добавляющий информацию одепартаменте. Если такой департамент уже
+     void add (String department) throws IOException; //– добавляющий информацию одепартаменте. Если такой департамент уже
 
 }

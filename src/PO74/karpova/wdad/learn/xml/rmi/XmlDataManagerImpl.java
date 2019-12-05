@@ -30,13 +30,13 @@ public class XmlDataManagerImpl implements XmlDataManager {
     }
 
     @Override
-    public void setJobTitle(Employee employee, JobTitle newJobTitle) throws IOException {
-        xmlTask.setJobTitle(employee,newJobTitle);
+    public void setJobTitle(String firstName, String secondName, String newJobTitle) throws TransformerException {
+        xmlTask.setJobTitile(firstName,secondName,newJobTitle);
     }
 
     @Override
-    public void setSalary(Employee employee, int newSalary) throws IOException {
-        xmlTask.setSalary(employee,newSalary);
+    public void setSalary(String firstName, String secondName, int newSalary) throws TransformerException {
+        xmlTask.setSalary(firstName,secondName,newSalary);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class XmlDataManagerImpl implements XmlDataManager {
     }
 
     @Override
-    public void add(Department department) throws IOException {
+    public void add(String department) throws IOException {
         xmlTask.add(department);
     }
 

@@ -100,16 +100,7 @@ public class XmlTask {
 
          }
      }
-     // изменяет размер заработной платы сотрудника.
-    public void setSalary(Employee employee, int newSalary) throws IOException
-    {
 
-    }
-    // изменяет должность сотрудника.
-    public void setJobTitle(Employee employee, JobTitle newJobTitle) throws IOException
-    {
-
-    }
 
 
 //удаляющий информацию о сотруднике.
@@ -124,28 +115,9 @@ public class XmlTask {
             }
         }
     }
-    // удаляющий информацию о сотруднике.
-    public void fireEmployee(String fname) throws  TransformerException {
-        String firstName="Glen1";
-        String secondName="Sand1";
-
-        System.out.println(0000000);
-
-        for (int i = 0; i < employeeElements.getLength(); i++) {
-            Element employee = (Element) employeeElements.item(i);
-            if (employee.getAttribute("firstname").equals(firstName)
-                    && employee.getAttribute("secondname").equals(secondName)) {
-                employee.getParentNode().removeChild(employee);
-                transformer();
-                return;
-            }
-
-        }
-    }
-
 
     //добавить департамент
-    public void add(Department department) throws IOException {
+    public void add(String department) throws IOException {
 
     }
 
@@ -155,6 +127,7 @@ public class XmlTask {
         Transformer transformer = factory1.newTransformer();
         transformer.transform(new DOMSource(document), new StreamResult(document.getDocumentURI()));
     }
+
 }
 
 
